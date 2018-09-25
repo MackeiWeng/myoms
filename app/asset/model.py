@@ -18,4 +18,4 @@ class  CloudHost(db.Model):
     private_ip = db.Column(db.String(32))
     ssh_port = db.Column(db.String(16))
     update_time = db.Column(db.DateTime)
-    host_info = db.Column(db.Column(255))
+    host_info = db.Column(db.String(255))
