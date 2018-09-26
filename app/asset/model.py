@@ -4,7 +4,6 @@ from utils.ext import db
 class CloudRoom(db.Model):
     __tablename__ = "cloud_room"
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-    name = db.Column(db.String(length=64,collation='utf8_general_ci'))
     supplier = db.Column(db.String(length=64,collation='utf8_general_ci'))
     region = db.Column(db.String(length=64,collation='utf8_general_ci'))
     zore = db.Column(db.String(length=64,collation='utf8_general_ci'))
