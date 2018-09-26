@@ -7,7 +7,7 @@ class CloudRoom(db.Model):
     supplier = db.Column(db.String(length=64,collation='utf8_general_ci'))
     region = db.Column(db.String(length=64,collation='utf8_general_ci'))
     zore = db.Column(db.String(length=64,collation='utf8_general_ci'))
-    cloud_host = db.relationship("cloud_host",backref="cloud_room",lazy='dynamic')
+    cloud_host = db.relationship("CloudHost",backref="cloud_room",lazy='dynamic')
 
 class  CloudHost(db.Model):
     __tablename__ = "cloud_host"
