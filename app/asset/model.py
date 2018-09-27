@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from utils.ext import db
+import  json
 
 class CloudRoom(db.Model):
     __tablename__ = "cloud_room"
@@ -8,6 +9,16 @@ class CloudRoom(db.Model):
     region = db.Column(db.String(length=64,collation='utf8_general_ci'))
     zore = db.Column(db.String(length=64,collation='utf8_general_ci'))
     cloud_host = db.relationship("CloudHost",backref="cloud_room",lazy='dynamic')
+
+    def to_dict(self):
+        doc = self.__dict__
+        if "_sa_instance_state" in doc:
+            del doc["_sa_instance_state"]
+        result = {}
+        for key in doc.keys():
+            result[key] = doc[key]
+        return  result
+
 
 class  CloudHost(db.Model):
     __tablename__ = "cloud_host"

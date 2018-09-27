@@ -4,6 +4,7 @@ from .model import CloudHost,CloudRoom
 from common.common import falseReturn,trueReturn
 from utils.ext import db
 import  logging
+from utils.ErrorCode import  *
 
 class AssetCloudRoom(Resource):
 
@@ -16,6 +17,7 @@ class AssetCloudRoom(Resource):
         parser.add_argument("id",type=int)
         args = parser.parse_args()
         filter_list = []
+        stat = STATE_OK
         if args.get("supplier"):
             filter_list.append(CloudRoom.supplier == args.get("supplier"))
         if args.get("region"):
@@ -24,19 +26,22 @@ class AssetCloudRoom(Resource):
             filter_list.append(CloudRoom.id == args.get("id"))
         print(filter_list)
         try:
-            query = CloudRoom.query.filter_by(*filter_list).order_by(CloudHost.id)
-            total = query.count()
-            print(total)
+            query = CloudRoom.query.filter(*filter_list).order_by(CloudRoom.id)
             limit = args.get("limit",10)
             offset = args.get("offset",1)
             # query = query.offset(int((offset - 1) * limit))
             # result = query.limit(limit)
             result = query.paginate(offset,limit,False)
-            print(result)
-            return  trueReturn(data=result,msg="ture")
+            result_list = []
+            for item in result.items:
+                item_dict = item.to_dict()
+                result_list.append(item_dict)
+            logging.info("get CloudRoom Ture")
+            return  trueReturn(data=result_list,msg=stat.message),stat.eid
         except Exception as e:
-            msg = e
-            return falseReturn(data="",msg=msg)
+            logging.error("get CloudRoom error:%s "%e)
+            stat = isinstance(e, ErrorCode) and e or ErrorCode(451, "unknown error:" + str(e))
+            return falseReturn(data="",msg=stat.message),stat.eid
 
     def post(self):
         parser = reqparse.RequestParser()
@@ -49,11 +54,11 @@ class AssetCloudRoom(Resource):
         zore = args.get("zore")
         if not supplier  or not region or not zore:
             msg = "请输入所有参数"
-            print("输出异常")
+            print(msg)
             return  falseReturn(data="",msg=msg)
-        if self._is_exit(supplier,region,zore):
+        if self._is_exit(supplier=supplier,region=region,zore=zore):
             msg = "云机房配置信息已存在"
-            print("输出异常")
+            print(msg)
             return  falseReturn(data='',msg=msg)
         try:
             add_parm = CloudRoom(supplier=supplier,region=region,zore=zore)
@@ -80,12 +85,16 @@ class AssetCloudRoom(Resource):
         zore = args.get("zore")
         if not supplier or not region or not zore or not id:
             msg = "请输入所有参数"
-            print("输出异常")
+            print(msg)
             return falseReturn(data="", msg=msg)
+        if not self._is_exit(id=id,supplier=supplier,region=region,zore=zore):
+            msg = "数据不存在请输入需要删除的数据"
+            return falseReturn(data='',msg=msg)
         try:
             delete_parm = CloudRoom.query.filter_by(id=id,supplier=supplier,region=region,zore=zore).first()
             db.session.delete(delete_parm)
             db.session.commit()
+            return  trueReturn(data="Ture",msg="delect success")
         except Exception as e:
             print(e)
             db.session.rollback()
@@ -105,14 +114,14 @@ class AssetCloudRoom(Resource):
         zore = args.get("zore")
         if not id:
             msg = "请输入所有参数"
-            print("输出异常")
+            print(msg)
             return falseReturn(data="", msg=msg)
         if not self._is_exit(id=id):
             msg = "云机房配置信息不存在"
-            print("输出异常")
+            print(msg)
             return falseReturn(data='', msg=msg)
         try:
-            update_parm = CloudRoom(id=id).first()
+            update_parm = CloudRoom.query.filter_by(id=id).first()
             if supplier:
                 update_parm.supplier = supplier
             if region:
@@ -138,7 +147,7 @@ class AssetCloudRoom(Resource):
             if region:
                 query_list.append(CloudRoom.region==region)
             if zore:
-                query_list.appned(CloudRoom.zore==zore)
+                query_list.append(CloudRoom.zore==zore)
             result = CloudRoom.query.filter(*query_list).count()
             if result > 0:
                 return  True
