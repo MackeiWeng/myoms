@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 from flask_restful import Resource, reqparse, request,abort
 from .model import CloudHost,CloudRoom
-from common.common import falseReturn,trueReturn
 from utils.ext import db
 import  logging
-from utils.ErrorCode import  *
+from utils.ReturnCode import  *
 
 class AssetCloudRoom(Resource):
 
@@ -24,7 +23,6 @@ class AssetCloudRoom(Resource):
             filter_list.append(CloudRoom.region == args.get("region"))
         if args.get("id"):
             filter_list.append(CloudRoom.id == args.get("id"))
-        print(filter_list)
         try:
             query = CloudRoom.query.filter(*filter_list).order_by(CloudRoom.id)
             limit = args.get("limit",10)
@@ -36,12 +34,13 @@ class AssetCloudRoom(Resource):
             for item in result.items:
                 item_dict = item.to_dict()
                 result_list.append(item_dict)
-            logging.info("get CloudRoom Ture")
             return  trueReturn(data=result_list,msg=stat.message),stat.eid
         except Exception as e:
-            logging.error("get CloudRoom error:%s "%e)
+            logging.error("%s %s error:%s" % (request.method, request.full_path, e))
             stat = isinstance(e, ErrorCode) and e or ErrorCode(451, "unknown error:" + str(e))
             return falseReturn(data="",msg=stat.message),stat.eid
+        finally:
+            db.session.close()
 
     def post(self):
         parser = reqparse.RequestParser()
@@ -53,24 +52,26 @@ class AssetCloudRoom(Resource):
         region = args.get("region")
         zore = args.get("zore")
         if not supplier  or not region or not zore:
-            msg = "请输入所有参数"
-            print(msg)
-            return  falseReturn(data="",msg=msg)
+            stat = STATE_LACK_PARAM_ERR
+            return  falseReturn(data="",msg=stat.message),stat.eid
         if self._is_exit(supplier=supplier,region=region,zore=zore):
             msg = "云机房配置信息已存在"
-            print(msg)
-            return  falseReturn(data='',msg=msg)
+            stat = ErrorCode(400,msg)
+            return  falseReturn(data='',msg=msg),stat.eid
         try:
             add_parm = CloudRoom(supplier=supplier,region=region,zore=zore)
             db.session.add(add_parm)
             db.session.commit()
-            return  trueReturn(data="True",msg="数据添加成功")
+            stat=STATE_OK
+            return trueReturn(data="True", msg=stat.message), stat.eid
         except Exception as e:
             db.session.rollback()
-            print(e)
-            print("输出异常")
+            logging.error("%s %s error:%s" % (request.method, request.full_path, e))
+            stat = isinstance(e, ErrorCode) and e or ErrorCode(451, "unknown error:" + str(e))
+            return falseReturn(data="", msg=stat.message), stat.eid
         finally:
             db.session.close()
+
 
     def  delete(self):
         parser = reqparse.RequestParser()
@@ -84,20 +85,23 @@ class AssetCloudRoom(Resource):
         region = args.get("region")
         zore = args.get("zore")
         if not supplier or not region or not zore or not id:
-            msg = "请输入所有参数"
-            print(msg)
-            return falseReturn(data="", msg=msg)
+            stat = STATE_LACK_PARAM_ERR
+            return falseReturn(data="", msg=stat.message), stat.eid
         if not self._is_exit(id=id,supplier=supplier,region=region,zore=zore):
             msg = "数据不存在请输入需要删除的数据"
-            return falseReturn(data='',msg=msg)
+            stat =  ErrorCode(400,msg)
+            return falseReturn(data='',msg=stat.message),stat.eid
         try:
             delete_parm = CloudRoom.query.filter_by(id=id,supplier=supplier,region=region,zore=zore).first()
             db.session.delete(delete_parm)
             db.session.commit()
-            return  trueReturn(data="Ture",msg="delect success")
+            stat = STATE_OK
+            return  trueReturn(data="Ture",msg=stat.message),stat.eid
         except Exception as e:
-            print(e)
+            logging.error("%s %s error:%s" % (request.method,request.full_path, e))
             db.session.rollback()
+            stat = isinstance(e, ErrorCode) and e or ErrorCode(451, "unknown error:" + str(e))
+            return falseReturn(data='', msg=stat.message), stat.eid
         finally:
             db.session.close()
 
@@ -113,13 +117,12 @@ class AssetCloudRoom(Resource):
         region = args.get("region")
         zore = args.get("zore")
         if not id:
-            msg = "请输入所有参数"
-            print(msg)
-            return falseReturn(data="", msg=msg)
+            stat = STATE_LACK_PARAM_ERR
+            return falseReturn(data="", msg=stat.message), stat.eid
         if not self._is_exit(id=id):
             msg = "云机房配置信息不存在"
-            print(msg)
-            return falseReturn(data='', msg=msg)
+            stat = ErrorCode(400,msg)
+            return falseReturn(data='', msg=stat.message),stat.eid
         try:
             update_parm = CloudRoom.query.filter_by(id=id).first()
             if supplier:
@@ -129,11 +132,13 @@ class AssetCloudRoom(Resource):
             if zore:
                 update_parm.zore = zore
             db.session.commit()
-            return trueReturn(data="True", msg="数据修改成功")
+            stat = STATE_UPDATE_OK
+            return trueReturn(data="True", msg=stat.message),stat.eid
         except Exception as e:
+            logging.error("%s %s error:%s" % (request.method, request.full_path, e))
             db.session.rollback()
-            print(e)
-            print("输出异常")
+            stat = isinstance(e, ErrorCode) and e or ErrorCode(451, "unknown error:" + str(e))
+            return falseReturn(data='', msg=stat.message), stat.eid
         finally:
             db.session.close()
 

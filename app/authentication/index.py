@@ -8,7 +8,7 @@ from utils.ext import db
 from flask_login import current_user
 import json
 import logging
-from utils.ErrorCode import *
+from utils.ReturnCode import *
 import jwt
 from flask_jwt import jwt_required, current_identity
 # from utils.helper import Argument
