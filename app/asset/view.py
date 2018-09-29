@@ -4,9 +4,11 @@ from .model import CloudHost,CloudRoom
 from utils.ext import db
 import  logging
 from utils.ReturnCode import  *
+from ..authentication.auth import authenticated
 
 class AssetCloudRoom(Resource):
 
+    @authenticated(request)
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument("limit",type=int)

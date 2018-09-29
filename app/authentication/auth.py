@@ -3,10 +3,11 @@
 import jwt,datetime,time
 from flask import jsonify
 from .model import  User
-from common.common import  falseReturn,trueReturn
+from utils.ReturnCode import  falseReturn,trueReturn
 from config.setting import Config
-class Auth():
+import functools
 
+class Auth():
     @staticmethod
     def encode_auth_token(user_id,login_time):
         """
@@ -101,3 +102,17 @@ class Auth():
         else:
             result = falseReturn('', '没有提供认证token')
         return result
+
+
+def authenticated(request):
+
+    @functools.wraps(request)
+    def wrapper(func):
+        def inner_wrapper(*args, **kwargs):
+            Auth.identify(Auth, request=request)
+            return func(*args, **kwargs)
+        return inner_wrapper
+    return wrapper
+
+
+
