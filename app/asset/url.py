@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint
 from flask_restful import Api
-from .view import AssetCloudRoom,AssetCloudHost
+from .cloudroom import AssetCloudRoom
+from .cloudhost import AssetCloudHost
 
 
 def get_asset_resources():

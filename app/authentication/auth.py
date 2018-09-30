@@ -6,6 +6,7 @@ from .model import  User
 from utils.ReturnCode import  falseReturn,trueReturn
 from config.setting import Config
 import functools
+from utils.ReturnCode import *
 
 class Auth():
     @staticmethod
@@ -69,7 +70,7 @@ class Auth():
                 User.update()
                 token = self.encode_auth_token(userInfo.id, login_time)
                 print ("生成的token:",token)
-                data = [{"token":"WTF %s"%token.decode(),"expire_time":Config.JWT_EXPIRE_TIME,"user":userInfo.username}]
+                data = [{"token":"JWT %s"%token.decode(),"expire_time":Config.JWT_EXPIRE_TIME,"user":userInfo.username}]
                 return jsonify(trueReturn(data, '登录成功'))
             else:
                 return jsonify(falseReturn('', '密码不正确'))
@@ -82,6 +83,7 @@ class Auth():
         auth_header = request.headers.get('Authorization')
         if (auth_header):
             auth_tokenArr = auth_header.split(" ")
+            print(auth_tokenArr)
             if (not auth_tokenArr or auth_tokenArr[0] != 'JWT' or len(auth_tokenArr) != 2):
                 result = falseReturn('', '请传递正确的验证头信息')
             else:
@@ -103,13 +105,14 @@ class Auth():
             result = falseReturn('', '没有提供认证token')
         return result
 
-
+#路由保护
 def authenticated(request):
-
-    @functools.wraps(request)
     def wrapper(func):
+        @functools.wraps(func)
         def inner_wrapper(*args, **kwargs):
-            Auth.identify(Auth, request=request)
+            result = Auth.identify(Auth, request=request)
+            if not result.get("status"):
+                return result,401
             return func(*args, **kwargs)
         return inner_wrapper
     return wrapper

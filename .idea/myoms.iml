@@ -8,6 +8,7 @@
     <orderEntry type="module" module-name="oms" />
     <orderEntry type="module" module-name="owner" />
     <orderEntry type="module" module-name="devops-flask-vue-master" />
+    <orderEntry type="module" module-name="scripts" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />

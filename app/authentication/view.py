@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-from flask_restful import Resource, reqparse, request
+from flask_restful import Resource, reqparse
+from flask import  request
 from flask import flash, redirect, Blueprint, current_app,jsonify
 from flask_security import login_required, login_user, logout_user
 from utils.ReturnCode import *
 from .model import User,Groups,Role
 from common.common import  trueReturn,falseReturn
 from .auth import  Auth
+import json
 
 
 module = Blueprint('logout', __name__)
@@ -82,20 +84,21 @@ class Login(Resource):
         exp = None
         state = STATE_OK
         try:
-            print (request.json)
-            if request.json:
-                username = request.json.get('username', None)
-                password = request.json.get('password', None)
+            parser = reqparse.RequestParser()
+            parser.add_argument("username", type=int)
+            parser.add_argument("password", type=int)
+            args = parser.parse_args()
+            username = args.get('username', None)
+            password = args.get('password', None)
+            if username and password:
                 _secret = current_app.config.get('SECRET_KEY')
-                if ( not username or not password ):
-                    return jsonify(falseReturn("","用户名或密码不能为空"))
-                else:
-                    return Auth().authenticate(username,password)
+                return Auth().authenticate(username,password)
             else:
                 return jsonify(falseReturn("", "用户名或密码不能为空"))
         except Exception as e:
             # logging.error("get token error: %s." % str(e))
             # state = isinstance(e, ErrorCode) and e or ErrorCode(451, "unknown error:" + str(e))
             # print (state)
+            print(e)
             return jsonify(falseReturn("","账户密码验证错误"))
 
