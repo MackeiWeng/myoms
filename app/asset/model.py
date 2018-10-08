@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from utils.ext import db
-import  json
+import time
 
 class CloudRoom(db.Model):
     __tablename__ = "cloud_room"
@@ -29,3 +29,8 @@ class  CloudHost(db.Model):
     ssh_port = db.Column(db.String(16))
     update_time = db.Column(db.DateTime)
     host_info = db.Column(db.String(255))
+
+    def updatetime(self):
+        now_time_str = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+        self.update_time = now_time_str
+
