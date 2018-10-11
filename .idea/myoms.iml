@@ -9,6 +9,7 @@
     <orderEntry type="module" module-name="owner" />
     <orderEntry type="module" module-name="devops-flask-vue-master" />
     <orderEntry type="module" module-name="scripts" />
+    <orderEntry type="module" module-name="ansible-devel" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />

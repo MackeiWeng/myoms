@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://E:/ubox/业务运维/1.工具/.idea/1.工具.iml" filepath="E:/ubox/业务运维/1.工具/.idea/1.工具.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ansible-devel/.idea/ansible-devel.iml" filepath="$PROJECT_DIR$/../ansible-devel/.idea/ansible-devel.iml" />
       <module fileurl="file://$PROJECT_DIR$/../devops-flask-vue-master/.idea/devops-flask-vue-master.iml" filepath="$PROJECT_DIR$/../devops-flask-vue-master/.idea/devops-flask-vue-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/myoms.iml" filepath="$PROJECT_DIR$/.idea/myoms.iml" />
       <module fileurl="file://$PROJECT_DIR$/../myoms-vue/.idea/myoms-vue.iml" filepath="$PROJECT_DIR$/../myoms-vue/.idea/myoms-vue.iml" />

@@ -18,6 +18,26 @@ import ansible.constants as C
 那我们如何取消这个交互呢'''
 C.HOST_KEY_CHECKING = False
 
+# class AnsibleHost:
+#     def __init__(self, host, port=None, connection=None, ssh_user=None, ssh_pass=None):
+#         self.host = host
+#         self.port = port
+#         self.ansible_connection = connection
+#         self.ansible_ssh_user = ssh_user
+#         self.ansible_ssh_pass = ssh_pass
+#
+#     def __str__(self):
+#         result = 'ansible_ssh_host=' + str(self.host)
+#         if self.port:
+#             result += ' ansible_ssh_port=' + str(self.port)
+#         if self.ansible_connection:
+#             result += ' ansible_connection=' + str(self.ansible_connection)
+#         if self.ansible_ssh_user:
+#             result += ' ansible_ssh_user=' + str(self.ansible_ssh_user)
+#         if self.ansible_ssh_pass:
+#             result += ' ansible_ssh_pass=' + str(self.ansible_ssh_pass)
+#         return result
+
 Options = namedtuple('Options', [
     'listtags', 'listtasks', 'listhosts', 'syntax', 'connection',
     'module_path', 'forks', 'remote_user', 'private_key_file', 'timeout',
@@ -50,7 +70,7 @@ def get_default_options():
         verbosity=None,
         extra_vars=[],
         check=False,
-        playbook_path='',
+        playbook_path='/etc/ansible/',
         passwords=None,
         diff=False,
         gathering='implicit',
@@ -62,34 +82,18 @@ def get_default_options():
 class AnsibleTaskResultCallback(CallbackBase):
     def __init__(self, display=None, option=None):
         super().__init__(display, option)
-        self.result = {}
+        self.result = None
         self.error_msg = None
-        self.result_list = []
-        self.host_dict = {}
 
     def v2_runner_on_ok(self, result):
-        # res = getattr(result, '_result')
-        # self.result = result
-        # self.result_list.append(self.result.__dict__)
-        # self.error_msg = res.get('stderr')
-        hostname = result._host
-        ret =result._result
-
-        if not self.result.get(hostname):
-            self.result[hostname] = {"stderr":[],'stdout':[],'rc':0}
-
-        if ret.get('stderr_lines'):
-            self.result[hostname]["stdout"].extend(ret['stderr_lines'])
-        if ret.get("stdout_lines"):
-            self.result[hostname]["stdout"].extend(ret["stdout_lines"])
-        if ret.get("rc"):
-            self.result[hostname]["rc"] = ret["rc"]
+        res = getattr(result, '_result')
+        self.result = res
+        self.error_msg = res.get('stderr')
 
     def v2_runner_on_failed(self, result, ignore_errors=None):
         if ignore_errors:
             return
         res = getattr(result, '_result')
-        self.result = result
         self.error_msg = res.get('stderr', '') + res.get('msg')
 
     def runner_on_unreachable(self, host, result):
@@ -98,104 +102,7 @@ class AnsibleTaskResultCallback(CallbackBase):
 
     def v2_runner_item_on_failed(self, result):
         res = getattr(result, '_result')
-        self.result = result
         self.error_msg = res.get('stderr', '') + res.get('msg')
-
-
-class PlaybookResultCallBack(CallbackBase):
-    """
-    Custom callback model for handlering the output data of
-    execute playbook file,
-    Base on the build-in callback plugins of ansible which named `json`.
-    """
-
-    CALLBACK_VERSION = 2.0
-    CALLBACK_TYPE = 'stdout'
-    CALLBACK_NAME = 'Dict'
-
-    def __init__(self, display=None):
-        super(PlaybookResultCallBack, self).__init__(display)
-        self.results = []
-        self.output = ""
-        self.item_results = {}  # {"host": []}
-
-    def _new_play(self, play):
-        return {
-            'play': {
-                'name': play.name,
-                'id': str(play._uuid)
-            },
-            'tasks': []
-        }
-
-    def _new_task(self, task):
-        return {
-            'task': {
-                'name': task.get_name(),
-            },
-            'hosts': {}
-        }
-
-    def v2_playbook_on_no_hosts_matched(self):
-        self.output = "skipping: No match hosts."
-
-    def v2_playbook_on_no_hosts_remaining(self):
-        pass
-
-    def v2_playbook_on_task_start(self, task, is_conditional):
-        self.results[-1]['tasks'].append(self._new_task(task))
-
-    def v2_playbook_on_play_start(self, play):
-        self.results.append(self._new_play(play))
-
-    def v2_playbook_on_stats(self, stats):
-        hosts = sorted(stats.processed.keys())
-        summary = {}
-        for h in hosts:
-            s = stats.summarize(h)
-            summary[h] = s
-
-        if self.output:
-            pass
-        else:
-            self.output = {
-                'plays': self.results,
-                'stats': summary
-            }
-
-    def gather_result(self, res):
-        if res._task.loop and "results" in res._result and res._host.name in self.item_results:
-            res._result.update({"results": self.item_results[res._host.name]})
-            del self.item_results[res._host.name]
-
-        self.results[-1]['tasks'][-1]['hosts'][res._host.name] = res._result
-
-    def v2_runner_on_ok(self, res, **kwargs):
-        if "ansible_facts" in res._result:
-            del res._result["ansible_facts"]
-
-        self.gather_result(res)
-
-    def v2_runner_on_failed(self, res, **kwargs):
-        self.gather_result(res)
-
-    def v2_runner_on_unreachable(self, res, **kwargs):
-        self.gather_result(res)
-
-    def v2_runner_on_skipped(self, res, **kwargs):
-        self.gather_result(res)
-
-    def gather_item_result(self, res):
-        self.item_results.setdefault(res._host.name, []).append(res._result)
-
-    def v2_runner_item_on_ok(self, res):
-        self.gather_item_result(res)
-
-    def v2_runner_item_on_failed(self, res):
-        self.gather_item_result(res)
-
-    def v2_runner_item_on_skipped(self, res):
-        self.gather_item_result(res)
 
 
 class AnsibleTask:
@@ -203,19 +110,34 @@ class AnsibleTask:
         self.hosts = hosts
         self._validate()
         self.hosts_file = None
+        # self._generate_hosts_file()
         self.options = get_default_options()
         self.loader = DataLoader()
+        # self.passwords = dict(vault_pass='secret')
+
         self.inventory = InventoryManager(loader=self.loader, sources=[','.join(self.hosts)+','])
         self.variable_manager = VariableManager(loader=self.loader, inventory=self.inventory)
         if extra_vars:
             self.variable_manager.extra_vars = extra_vars
+
+    # def _generate_hosts_file(self):
+    #     self.hosts_file = tempfile.mktemp()
+    #     with open(self.hosts_file, 'w+', encoding='utf-8') as file:
+    #         hosts = []
+    #         i_temp = 0
+    #         for host in self.hosts:
+    #             hosts.append('server' + str(i_temp) + ' ' + str(host))
+    #             i_temp += 1
+    #         file.write('\n'.join(hosts))
 
     def _validate(self):
         if not self.hosts:
             raise Exception('hosts不能为空')
         if not isinstance(self.hosts, list):
             raise Exception('hosts只能为list<AnsibleHost>数组')
-
+        for host in self.hosts:
+            if not isinstance(host, AnsibleHost):
+                raise Exception('host类型必须为AnsibleHost')
 
     def exec_shell(self, command):
         source = {'hosts': 'all', 'gather_facts': 'no', 'tasks': [
@@ -229,7 +151,7 @@ class AnsibleTask:
                 variable_manager=self.variable_manager,
                 loader=self.loader,
                 options=self.options,
-                passwords={},
+                passwords=self.passwords,
                 stdout_callback=results_callback
             )
             tqm.run(play)
@@ -243,20 +165,21 @@ class AnsibleTask:
                 tqm.cleanup()
 
     def exec_playbook(self, playbooks):
-        results_callback = PlaybookResultCallBack()
+        results_callback = AnsibleTaskResultCallback()
         playbook = PlaybookExecutor(playbooks=playbooks, inventory=self.inventory,
                                     variable_manager=self.variable_manager,
-                                    loader=self.loader, options=self.options, passwords={})
+                                    loader=self.loader, options=self.options, passwords=self.passwords)
         setattr(getattr(playbook, '_tqm'), '_stdout_callback', results_callback)
         playbook.run()
-        return results_callback.results
+        if results_callback.error_msg:
+            raise Exception(results_callback.error_msg)
+        return results_callback.result
 
     def __del__(self):
         if self.hosts_file:
             os.remove(self.hosts_file)
 
 if __name__ == "__main__":
-    host_list = ['192.168.132.137']
-    ansible_handle = AnsibleTask(host_list)
-    # print(ansible_handle.exec_shell(command="ls /opt"))
-    print(ansible_handle.exec_playbook(playbooks=['/opt/mycode/script.yml']))
+    a = AnsibleHost("192.168.132.137")
+    print(a)
+    #AnsibleTask(["192.168.132.137"]).exec_shell("ls /opt")

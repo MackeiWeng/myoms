@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from utils.ext import db
 import time
+from datetime import date, datetime
 
 class CloudRoom(db.Model):
     __tablename__ = "cloud_room"
@@ -16,7 +17,10 @@ class CloudRoom(db.Model):
             del doc["_sa_instance_state"]
         result = {}
         for key in doc.keys():
-            result[key] = doc[key]
+            if isinstance(doc[key],datetime):
+                result[key] = doc[key].strftime("%Y-%m-%d %H:%M:%S")
+            else:
+                result[key] = doc[key]
         return  result
 
 
@@ -34,3 +38,14 @@ class  CloudHost(db.Model):
         now_time_str = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
         self.update_time = now_time_str
 
+    def to_dict(self):
+        doc = self.__dict__
+        if "_sa_instance_state" in doc:
+            del doc["_sa_instance_state"]
+        result = {}
+        for key in doc.keys():
+            if isinstance(doc[key],datetime):
+                result[key] = doc[key].strftime("%Y-%m-%d %H:%M:%S")
+            else:
+                result[key] = doc[key]
+        return  result
