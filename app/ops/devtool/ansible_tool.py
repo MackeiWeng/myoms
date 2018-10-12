@@ -11,7 +11,7 @@ from ansible.playbook.play import Play
 from ansible.executor.playbook_executor import PlaybookExecutor
 from ansible.executor.task_queue_manager import TaskQueueManager
 from ansible.plugins.callback import CallbackBase
-from .callback import PlaybookResultCallBack,AdHocResultCallback,CommandResultCallback
+from callback import PlaybookResultCallBack,AdHocResultCallback,CommandResultCallback
 import ansible.constants as C
 '''
 在我们第一次执行远程操作时, 会有一个交互, 要求填写一个yes/no, 确认是将连接的host 写入 known_hosts

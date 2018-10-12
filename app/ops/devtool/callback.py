@@ -5,8 +5,7 @@ import sys
 from ansible.plugins.callback import CallbackBase
 from ansible.plugins.callback.default import CallbackModule
 
-from .display import TeeObj
-
+from display import TeeObj
 
 class AdHocResultCallback(CallbackModule):
     """
@@ -147,8 +146,13 @@ class PlaybookResultCallBack(CallbackBase):
         pass
 
     def v2_playbook_on_task_start(self, task, is_conditional):
-
-        self.results[-1]['tasks'].append(self._new_task(task))
+        '''
+        :param task: 名字不能为Gathering Facts
+        :param is_conditional:
+        :return:
+        '''
+        if task.get_name() != "Gathering Facts":
+            self.results[-1]['tasks'].append(self._new_task(task))
 
     def v2_playbook_on_play_start(self, play):
         self.results.append(self._new_play(play))
@@ -169,16 +173,34 @@ class PlaybookResultCallBack(CallbackBase):
             }
 
     def gather_result(self, res):
-        if res._task.loop and "results" in res._result and res._host.name in self.item_results:
-            res._result.update({"results": self.item_results[res._host.name]})
-            del self.item_results[res._host.name]
+        # if res._task.loop and "results" in res._result and res._host.name in self.item_results:
+        #     res._result.update({"results": self.item_results[res._host.name]})
+        #     del self.item_results[res._host.name]
+        tmp_result = {
+            "stdout":[],
+            "stderr":[],
+            "rc":0,
+            "start":"",
+            "end":""
+        }
+        if res._result.get('stderr_lines'):
+            tmp_result["stdout"].extend(res._result['stderr_lines'])
+        if res._result.get("stdout_lines"):
+            tmp_result["stdout"].extend(res._result["stdout_lines"])
+        if res._result.get("rc"):
+            tmp_result["rc"] = res._result["rc"]
+        if res._result.get("start"):
+            tmp_result["start"] = res._result["start"]
+        if res._result.get("end"):
+            tmp_result["end"] = res._result["end"]
+
         print(self.results)
-        self.results[-1]['tasks'][-1]['hosts'][res._host.name] = res._result
+        self.results[-1]['tasks'][-1]['hosts'][res._host.name] = tmp_result
 
     def v2_runner_on_ok(self, res, **kwargs):
-        if "ansible_facts" in res._result:
-            del res._result["ansible_facts"]
-
+        # if "ansible_facts" in res._result:
+        #     del res._result["ansible_facts"]
+        print(11111)
         self.gather_result(res)
 
     def v2_runner_on_failed(self, res, **kwargs):
