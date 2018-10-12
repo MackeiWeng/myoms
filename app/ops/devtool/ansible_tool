@@ -11,7 +11,7 @@ from ansible.playbook.play import Play
 from ansible.executor.playbook_executor import PlaybookExecutor
 from ansible.executor.task_queue_manager import TaskQueueManager
 from ansible.plugins.callback import CallbackBase
-
+from .callback import PlaybookResultCallBack,AdHocResultCallback,CommandResultCallback
 import ansible.constants as C
 '''
 在我们第一次执行远程操作时, 会有一个交互, 要求填写一个yes/no, 确认是将连接的host 写入 known_hosts
@@ -59,145 +59,6 @@ def get_default_options():
     return options
 
 
-class AnsibleTaskResultCallback(CallbackBase):
-    def __init__(self, display=None, option=None):
-        super().__init__(display, option)
-        self.result = {}
-        self.error_msg = None
-        self.result_list = []
-        self.host_dict = {}
-
-    def v2_runner_on_ok(self, result):
-        # res = getattr(result, '_result')
-        # self.result = result
-        # self.result_list.append(self.result.__dict__)
-        # self.error_msg = res.get('stderr')
-        hostname = result._host
-        ret =result._result
-
-        if not self.result.get(hostname):
-            self.result[hostname] = {"stderr":[],'stdout':[],'rc':0}
-
-        if ret.get('stderr_lines'):
-            self.result[hostname]["stdout"].extend(ret['stderr_lines'])
-        if ret.get("stdout_lines"):
-            self.result[hostname]["stdout"].extend(ret["stdout_lines"])
-        if ret.get("rc"):
-            self.result[hostname]["rc"] = ret["rc"]
-
-    def v2_runner_on_failed(self, result, ignore_errors=None):
-        if ignore_errors:
-            return
-        res = getattr(result, '_result')
-        self.result = result
-        self.error_msg = res.get('stderr', '') + res.get('msg')
-
-    def runner_on_unreachable(self, host, result):
-        if result.get('unreachable'):
-            self.error_msg = host + ':' + result.get('msg', '')
-
-    def v2_runner_item_on_failed(self, result):
-        res = getattr(result, '_result')
-        self.result = result
-        self.error_msg = res.get('stderr', '') + res.get('msg')
-
-
-class PlaybookResultCallBack(CallbackBase):
-    """
-    Custom callback model for handlering the output data of
-    execute playbook file,
-    Base on the build-in callback plugins of ansible which named `json`.
-    """
-
-    CALLBACK_VERSION = 2.0
-    CALLBACK_TYPE = 'stdout'
-    CALLBACK_NAME = 'Dict'
-
-    def __init__(self, display=None):
-        super(PlaybookResultCallBack, self).__init__(display)
-        self.results = []
-        self.output = ""
-        self.item_results = {}  # {"host": []}
-
-    def _new_play(self, play):
-        return {
-            'play': {
-                'name': play.name,
-                'id': str(play._uuid)
-            },
-            'tasks': []
-        }
-
-    def _new_task(self, task):
-        return {
-            'task': {
-                'name': task.get_name(),
-            },
-            'hosts': {}
-        }
-
-    def v2_playbook_on_no_hosts_matched(self):
-        self.output = "skipping: No match hosts."
-
-    def v2_playbook_on_no_hosts_remaining(self):
-        pass
-
-    def v2_playbook_on_task_start(self, task, is_conditional):
-        self.results[-1]['tasks'].append(self._new_task(task))
-
-    def v2_playbook_on_play_start(self, play):
-        self.results.append(self._new_play(play))
-
-    def v2_playbook_on_stats(self, stats):
-        hosts = sorted(stats.processed.keys())
-        summary = {}
-        for h in hosts:
-            s = stats.summarize(h)
-            summary[h] = s
-
-        if self.output:
-            pass
-        else:
-            self.output = {
-                'plays': self.results,
-                'stats': summary
-            }
-
-    def gather_result(self, res):
-        if res._task.loop and "results" in res._result and res._host.name in self.item_results:
-            res._result.update({"results": self.item_results[res._host.name]})
-            del self.item_results[res._host.name]
-
-        self.results[-1]['tasks'][-1]['hosts'][res._host.name] = res._result
-
-    def v2_runner_on_ok(self, res, **kwargs):
-        if "ansible_facts" in res._result:
-            del res._result["ansible_facts"]
-
-        self.gather_result(res)
-
-    def v2_runner_on_failed(self, res, **kwargs):
-        self.gather_result(res)
-
-    def v2_runner_on_unreachable(self, res, **kwargs):
-        self.gather_result(res)
-
-    def v2_runner_on_skipped(self, res, **kwargs):
-        self.gather_result(res)
-
-    def gather_item_result(self, res):
-        self.item_results.setdefault(res._host.name, []).append(res._result)
-
-    def v2_runner_item_on_ok(self, res):
-        self.gather_item_result(res)
-
-    def v2_runner_item_on_failed(self, res):
-        self.gather_item_result(res)
-
-    def v2_runner_item_on_skipped(self, res):
-        self.gather_item_result(res)
-
-
 class AnsibleTask:
     def __init__(self, hosts, extra_vars=None):
         self.hosts = hosts
@@ -221,7 +82,7 @@ class AnsibleTask:
         source = {'hosts': 'all', 'gather_facts': 'no', 'tasks': [
             {'action': {'module': 'shell', 'args': command}, 'register': 'shell_out'}]}
         play = Play().load(source, variable_manager=self.variable_manager, loader=self.loader)
-        results_callback = AnsibleTaskResultCallback()
+        results_callback = AdHocResultCallback()
         tqm = None
         try:
             tqm = TaskQueueManager(
@@ -233,8 +94,6 @@ class AnsibleTask:
                 stdout_callback=results_callback
             )
             tqm.run(play)
-            if results_callback.error_msg:
-                raise Exception(results_callback.error_msg)
             return results_callback.result
         except:
             raise

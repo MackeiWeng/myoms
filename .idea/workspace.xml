@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4277b23b-f7e2-461c-a52b-1290ac393a56" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ops/devtool/backup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ops/devtool/callback.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/myoms.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/myoms.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/asset/cloudhost.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/asset/cloudhost.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/asset/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/asset/model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ops/devtool/ansible_tool" beforeDir="false" afterPath="$PROJECT_DIR$/app/ops/devtool/ansible_tool" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/ReturnCode.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/ReturnCode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ops/devtool/backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/ops/devtool/backup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ops/devtool/callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/ops/devtool/callback.py" afterDir="false" />
     </list>
     <list id="a347ec1e-7c18-4ec3-bc9b-1bf9de43e276" name="Default" comment="">
       <change beforePath="E:/ubox/oms/requirements.txt" beforeDir="false" afterPath="E:/ubox/oms/requirements.txt" afterDir="false" />
@@ -41,7 +35,7 @@
           <entry key="cfg" value="1" />
           <entry key="hosts" value="1" />
           <entry key="md" value="1" />
-          <entry key="py" value="145" />
+          <entry key="py" value="146" />
           <entry key="pyi" value="1" />
           <entry key="yaml" value="1" />
           <entry key="yml" value="2" />
@@ -52,51 +46,45 @@
           <entry key="Ini" value="1" />
           <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="146" />
+          <entry key="Python" value="147" />
           <entry key="PythonStub" value="1" />
           <entry key="YAML" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="ansible_tool" value="795" />
+          <entry key="ansible_tool" value="820" />
           <entry key="dummy" value="37" />
-          <entry key="py" value="5504" />
+          <entry key="py" value="5524" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="37" />
-          <entry key="Python" value="6299" />
+          <entry key="Python" value="6344" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/ops/devtool/ansible_tool">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="729">
-              <caret line="144" column="33" selection-start-line="144" selection-start-column="8" selection-end-line="144" selection-end-column="33" />
+            <state relative-caret-position="450">
+              <caret line="84" column="46" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="46" />
               <folding>
                 <element signature="e#48#57#0" expanded="true" />
-                <marker date="1539252192947" expanded="true" signature="2052:2061" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/executor/playbook_executor.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/ops/devtool/callback.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="148" column="33" selection-start-line="148" selection-start-column="8" selection-end-line="148" selection-end-column="33" />
+            <state relative-caret-position="1414">
+              <caret line="177" column="45" lean-forward="true" selection-start-line="177" selection-start-column="45" selection-end-line="177" selection-end-column="45" />
               <folding>
                 <element signature="e#25#35#0" expanded="true" />
                 <element signature="e#225#2599#0" />
@@ -109,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/plugins/callback/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="279">
-              <caret line="289" column="8" selection-start-line="289" selection-start-column="8" selection-end-line="289" selection-end-column="8" />
+              <caret line="389" column="33" selection-start-line="389" selection-start-column="8" selection-end-line="389" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -155,7 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>orm</find>
       <find>first()</find>
       <find>first</find>
       <find>STATE_OK</find>
@@ -183,8 +170,9 @@
       <find>ismerge</find>
       <find>v2_runner_on_ok</find>
       <find>item_results</find>
-      <find>results_callback</find>
       <find>v2_playbook_on_task_start</find>
+      <find>results_callback</find>
+      <find>v2_playbook_on_play_start</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -211,8 +199,8 @@
         <option value="$PROJECT_DIR$/utils/tools.py" />
         <option value="$PROJECT_DIR$/app/asset/model.py" />
         <option value="$PROJECT_DIR$/utils/ReturnCode.py" />
-        <option value="$PROJECT_DIR$/app/ops/devtool/callback.py" />
         <option value="$PROJECT_DIR$/app/asset/cloudhost.py" />
+        <option value="$PROJECT_DIR$/app/ops/devtool/callback.py" />
         <option value="$PROJECT_DIR$/app/ops/devtool/backup.py" />
         <option value="$PROJECT_DIR$/app/ops/devtool/ansible_tool" />
       </list>
@@ -252,6 +240,24 @@
             </path>
             <path>
               <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myoms" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myoms" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="ops" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myoms" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="ops" type="462c0819:PsiDirectoryNode" />
+              <item name="devtool" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
               <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -279,15 +285,6 @@
               <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="ansible" type="462c0819:PsiDirectoryNode" />
               <item name="plugins" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="ansible" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
-              <item name="callback" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -676,16 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/ops/devtool/backup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="164" column="29" lean-forward="true" selection-start-line="164" selection-start-column="29" selection-end-line="164" selection-end-column="29" />
-          <folding>
-            <element signature="e#48#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/ubox/oms/utils/format_taskdata.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="628">
@@ -787,34 +774,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/ops/devtool/ansible_tool">
+    <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/plugins/callback/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="729">
-          <caret line="144" column="33" selection-start-line="144" selection-start-column="8" selection-end-line="144" selection-end-column="33" />
-          <folding>
-            <element signature="e#48#57#0" expanded="true" />
-            <marker date="1539252192947" expanded="true" signature="2052:2061" ph="..." />
-          </folding>
+        <state relative-caret-position="279">
+          <caret line="389" column="33" selection-start-line="389" selection-start-column="8" selection-end-line="389" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/executor/playbook_executor.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/plugins/callback/__init__.py">
+    <entry file="file://$PROJECT_DIR$/app/ops/devtool/backup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="289" column="8" selection-start-line="289" selection-start-column="8" selection-end-line="289" selection-end-column="8" />
+        <state relative-caret-position="1347">
+          <caret line="122" column="63" selection-start-line="122" selection-start-column="63" selection-end-line="122" selection-end-column="63" />
+          <folding>
+            <element signature="e#48#57#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/ops/devtool/callback.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="148" column="33" selection-start-line="148" selection-start-column="8" selection-end-line="148" selection-end-column="33" />
+        <state relative-caret-position="1414">
+          <caret line="177" column="45" lean-forward="true" selection-start-line="177" selection-start-column="45" selection-end-line="177" selection-end-column="45" />
           <folding>
             <element signature="e#25#35#0" expanded="true" />
             <element signature="e#225#2599#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ops/devtool/ansible_tool">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="84" column="46" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="46" />
+          <folding>
+            <element signature="e#48#57#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -147,6 +147,7 @@ class PlaybookResultCallBack(CallbackBase):
         pass
 
     def v2_playbook_on_task_start(self, task, is_conditional):
+
         self.results[-1]['tasks'].append(self._new_task(task))
 
     def v2_playbook_on_play_start(self, play):
@@ -171,7 +172,7 @@ class PlaybookResultCallBack(CallbackBase):
         if res._task.loop and "results" in res._result and res._host.name in self.item_results:
             res._result.update({"results": self.item_results[res._host.name]})
             del self.item_results[res._host.name]
-
+        print(self.results)
         self.results[-1]['tasks'][-1]['hosts'][res._host.name] = res._result
 
     def v2_runner_on_ok(self, res, **kwargs):

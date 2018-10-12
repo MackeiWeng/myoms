@@ -79,21 +79,38 @@ def get_default_options():
     return options
 
 
+
 class AnsibleTaskResultCallback(CallbackBase):
     def __init__(self, display=None, option=None):
         super().__init__(display, option)
-        self.result = None
+        self.result = {}
         self.error_msg = None
+        self.result_list = []
+        self.host_dict = {}
 
     def v2_runner_on_ok(self, result):
-        res = getattr(result, '_result')
-        self.result = res
-        self.error_msg = res.get('stderr')
+        # res = getattr(result, '_result')
+        # self.result = result
+        # self.result_list.append(self.result.__dict__)
+        # self.error_msg = res.get('stderr')
+        hostname = result._host
+        ret =result._result
+
+        if not self.result.get(hostname):
+            self.result[hostname] = {"stderr":[],'stdout':[],'rc':0}
+
+        if ret.get('stderr_lines'):
+            self.result[hostname]["stdout"].extend(ret['stderr_lines'])
+        if ret.get("stdout_lines"):
+            self.result[hostname]["stdout"].extend(ret["stdout_lines"])
+        if ret.get("rc"):
+            self.result[hostname]["rc"] = ret["rc"]
 
     def v2_runner_on_failed(self, result, ignore_errors=None):
         if ignore_errors:
             return
         res = getattr(result, '_result')
+        self.result = result
         self.error_msg = res.get('stderr', '') + res.get('msg')
 
     def runner_on_unreachable(self, host, result):
@@ -102,6 +119,7 @@ class AnsibleTaskResultCallback(CallbackBase):
 
     def v2_runner_item_on_failed(self, result):
         res = getattr(result, '_result')
+        self.result = result
         self.error_msg = res.get('stderr', '') + res.get('msg')
 
 
