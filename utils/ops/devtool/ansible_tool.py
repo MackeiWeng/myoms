@@ -11,6 +11,7 @@ from ansible.playbook.play import Play
 from ansible.executor.playbook_executor import PlaybookExecutor
 from ansible.executor.task_queue_manager import TaskQueueManager
 from ansible.plugins.callback import CallbackBase
+from ansible.plugins.callback.json import  CallbackModule
 from callback import PlaybookResultCallBack,AdHocResultCallback,CommandResultCallback
 import ansible.constants as C
 '''
@@ -83,6 +84,7 @@ class AnsibleTask:
             {'action': {'module': 'shell', 'args': command}, 'register': 'shell_out'}]}
         play = Play().load(source, variable_manager=self.variable_manager, loader=self.loader)
         results_callback = AdHocResultCallback()
+        # results_callback = CallbackModule()
         tqm = None
         try:
             tqm = TaskQueueManager(
@@ -94,7 +96,8 @@ class AnsibleTask:
                 stdout_callback=results_callback
             )
             tqm.run(play)
-            return results_callback.result
+            # return results_callback.results
+            return results_callback.results_raw
         except:
             raise
         finally:
@@ -110,12 +113,13 @@ class AnsibleTask:
         playbook.run()
         return results_callback.results
 
+
     def __del__(self):
         if self.hosts_file:
             os.remove(self.hosts_file)
 
-if __name__ == "__main__":
-    host_list = ['192.168.132.137']
-    ansible_handle = AnsibleTask(host_list)
-    # print(ansible_handle.exec_shell(command="ls /opt"))
-    print(ansible_handle.exec_playbook(playbooks=['/opt/mycode/script.yml']))
+# if __name__ == "__main__":
+#     host_list =  ['192.168.132.137',"192.168.132.140"]
+#     ansible_handle = AnsibleTask(host_list)
+#     print(ansible_handle.exec_shell(command="ls /opt"))
+#     # print(ansible_handle.exec_playbook(playbooks=['/opt/mycode/script.yml']))

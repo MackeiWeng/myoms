@@ -2,6 +2,7 @@
 from flask import Flask, flash, request
 from .authentication.url import get_auth_resources
 from .asset.url import  get_asset_resources
+from .worksys import  get_worksys_resources
 from utils.ext import db, cors, mongo
 # from utils.permission import security, authenticate, identity
 # from flask_kvsession import KVSessionExtension
@@ -52,6 +53,7 @@ def create_app(config_name, template_folder=None, static_folder=None):
     # 蓝图功能, 注册api url
     app.register_blueprint(get_auth_resources(), url_prefix='/user')
     app.register_blueprint(get_asset_resources(), url_prefix='/asset')
+    app.register_blueprint(get_worksys_resources(), url_prefix='/worksys')
 
     # authentication 管理
     # from utils.ext import login_manager

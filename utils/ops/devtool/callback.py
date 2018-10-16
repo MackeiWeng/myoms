@@ -3,20 +3,18 @@
 import sys
 
 from ansible.plugins.callback import CallbackBase
-from ansible.plugins.callback.default import CallbackModule
-
 from display import TeeObj
 
-class AdHocResultCallback(CallbackModule):
+class AdHocResultCallback(CallbackBase):
     """
     Task result Callback
     """
     def __init__(self, display=None, options=None, file_obj=None):
         # result_raw example: {
-        #   "ok": {"hostname": {"task_name": {}，...},..},
-        #   "failed": {"hostname": {"task_name": {}..}, ..},
-        #   "unreachable: {"hostname": {"task_name": {}, ..}},
-        #   "skipped": {"hostname": {"task_name": {}, ..}, ..},
+        #   "ok": {"hostname": {"stdout": [],"stderr": [],"rc": 0,"start": "","end": ""}，,..},
+        #   "failed": {"hostname": {"stdout": [],"stderr": [],"rc": 0,"start": "","end": ""}, ..},
+        #   "unreachable: {"hostname": {"stdout": [],"stderr": [],"rc": 0,"start": "","end": ""}, ..}},
+        #   "skipped": {"hostname": {"stdout": [],"stderr": [],"rc": 0,"start": "","end": ""}, ..}, ..},
         # }
         # results_summary example: {
         #   "contacted": {"hostname",...},
@@ -32,13 +30,29 @@ class AdHocResultCallback(CallbackModule):
         self._clean_results(res._result, res._task.action)
         host = res._host.get_name()
         task_name = res.task_name
-        task_result = res._result
+        tmp_result = {
+            "stdout": [],
+            "stderr": [],
+            "rc": 0,
+            "start": "",
+            "end": ""
+        }
+        if res._result.get('stderr_lines', None):
+            tmp_result["stdout"].extend(res._result['stderr_lines'])
+        if res._result.get("stdout_lines", None):
+            tmp_result["stdout"].extend(res._result["stdout_lines"])
+        if res._result.get("rc", None):
+            tmp_result["rc"] = res._result["rc"]
+        if res._result.get("start", None):
+            tmp_result["start"] = res._result["start"]
+        if res._result.get("end", None):
+            tmp_result["end"] = res._result["end"]
 
         if self.results_raw[t].get(host):
-            self.results_raw[t][host][task_name] = task_result
+            self.results_raw[t][host] = tmp_result
         else:
-            self.results_raw[t][host] = {task_name: task_result}
-        self.clean_result(t, host, task_name, task_result)
+            self.results_raw[t][host] = tmp_result
+        self.clean_result(t, host, task_name, tmp_result)
 
     def clean_result(self, t, host, task_name, task_result):
         contacted = self.results_summary["contacted"]
@@ -56,19 +70,19 @@ class AdHocResultCallback(CallbackModule):
 
     def v2_runner_on_failed(self, result, ignore_errors=False):
         self.gather_result("failed", result)
-        super().v2_runner_on_failed(result, ignore_errors=ignore_errors)
+        # super().v2_runner_on_failed(result, ignore_errors=ignore_errors)
 
     def v2_runner_on_ok(self, result):
         self.gather_result("ok", result)
-        super().v2_runner_on_ok(result)
+        # super().v2_runner_on_ok(result)
 
     def v2_runner_on_skipped(self, result):
         self.gather_result("skipped", result)
-        super().v2_runner_on_skipped(result)
+        # super().v2_runner_on_skipped(result)
 
     def v2_runner_on_unreachable(self, result):
         self.gather_result("unreachable", result)
-        super().v2_runner_on_unreachable(result)
+        # super().v2_runner_on_unreachable(result)
 
 
 class CommandResultCallback(AdHocResultCallback):
@@ -173,34 +187,28 @@ class PlaybookResultCallBack(CallbackBase):
             }
 
     def gather_result(self, res):
-        # if res._task.loop and "results" in res._result and res._host.name in self.item_results:
-        #     res._result.update({"results": self.item_results[res._host.name]})
-        #     del self.item_results[res._host.name]
-        tmp_result = {
-            "stdout":[],
-            "stderr":[],
-            "rc":0,
-            "start":"",
-            "end":""
-        }
-        if res._result.get('stderr_lines'):
-            tmp_result["stdout"].extend(res._result['stderr_lines'])
-        if res._result.get("stdout_lines"):
-            tmp_result["stdout"].extend(res._result["stdout_lines"])
-        if res._result.get("rc"):
-            tmp_result["rc"] = res._result["rc"]
-        if res._result.get("start"):
-            tmp_result["start"] = res._result["start"]
-        if res._result.get("end"):
-            tmp_result["end"] = res._result["end"]
+        if not res._result.get("ansible_facts"):
+            tmp_result = {
+                "stdout": [],
+                "stderr": [],
+                "rc": 0,
+                "start": "",
+                "end": ""
+            }
+            if res._result.get('stderr_lines', None):
+                tmp_result["stdout"].extend(res._result['stderr_lines'])
+            if res._result.get("stdout_lines", None):
+                tmp_result["stdout"].extend(res._result["stdout_lines"])
+            if res._result.get("rc", None):
+                tmp_result["rc"] = res._result["rc"]
+            if res._result.get("start", None):
+                tmp_result["start"] = res._result["start"]
+            if res._result.get("end", None):
+                tmp_result["end"] = res._result["end"]
 
-        print(self.results)
-        self.results[-1]['tasks'][-1]['hosts'][res._host.name] = tmp_result
+            self.results[-1]['tasks'][-1]['hosts'][res._host.name] = tmp_result
 
     def v2_runner_on_ok(self, res, **kwargs):
-        # if "ansible_facts" in res._result:
-        #     del res._result["ansible_facts"]
-        print(11111)
         self.gather_result(res)
 
     def v2_runner_on_failed(self, res, **kwargs):
