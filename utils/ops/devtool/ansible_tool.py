@@ -35,7 +35,7 @@ def get_default_options():
         listtasks=False,
         listhosts=False,
         syntax=False,
-        timeout=60,
+        timeout=100,
         connection='ssh',
         module_path='',
         forks=10,
@@ -61,11 +61,13 @@ def get_default_options():
 
 
 class AnsibleTask:
-    def __init__(self, hosts, extra_vars=None):
+    def __init__(self, hosts, extra_vars=None,timeout=None):
         self.hosts = hosts
         self._validate()
         self.hosts_file = None
         self.options = get_default_options()
+        if timeout:
+            self.options.timeout = timeout
         self.loader = DataLoader()
         self.inventory = InventoryManager(loader=self.loader, sources=[','.join(self.hosts)+','])
         self.variable_manager = VariableManager(loader=self.loader, inventory=self.inventory)
@@ -118,8 +120,9 @@ class AnsibleTask:
         if self.hosts_file:
             os.remove(self.hosts_file)
 
-# if __name__ == "__main__":
-#     host_list =  ['192.168.132.137',"192.168.132.140"]
-#     ansible_handle = AnsibleTask(host_list)
-#     print(ansible_handle.exec_shell(command="ls /opt"))
-#     # print(ansible_handle.exec_playbook(playbooks=['/opt/mycode/script.yml']))
+if __name__ == "__main__":
+    host_list =  ['192.168.132.137',"192.168.132.140"]
+    extra_vars = {"script_path":"/opt/mycode/test.sh","host":",".join(host_list)}
+    ansible_handle = AnsibleTask(host_list,extra_vars=extra_vars)
+    # print(ansible_handle.exec_shell(command="ls /opt"))
+    print(ansible_handle.exec_playbook(playbooks=['/opt/mycode/var.yml']))

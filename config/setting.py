@@ -13,6 +13,8 @@ class Config(object):
     # JWT_EXPIRATION_DELTA = timedelta(seconds=60 * 60 * 24 * 10)
     # SESSION_STORE = {'host': 'paas-test.asiainfo.com', 'port': 30487, 'db': 2, 'password': '7788'}
     SWAGGER = {'title': 'Devops API', 'uiversion': 2, 'description': ''}
+    ANSIBLE_SCRIPTS_PATH="/opt/mycode/ansible_file/scripts"
+    ANSIBLE_FASTSCRIPT_PLAYBOOK_PATH = "/opt/mycode/ansible_file/playbook/fastscript.yml"
 
 class Devops(Config):
     DEBUG = True

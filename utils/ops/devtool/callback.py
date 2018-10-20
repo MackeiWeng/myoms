@@ -139,7 +139,7 @@ class PlaybookResultCallBack(CallbackBase):
     def _new_play(self, play):
         return {
             'play': {
-                'name': play.name,
+                'hosts': play.name,
                 'id': str(play._uuid)
             },
             'tasks': []
@@ -196,7 +196,7 @@ class PlaybookResultCallBack(CallbackBase):
                 "end": ""
             }
             if res._result.get('stderr_lines', None):
-                tmp_result["stdout"].extend(res._result['stderr_lines'])
+                tmp_result["stderr"].extend(res._result['stderr_lines'])
             if res._result.get("stdout_lines", None):
                 tmp_result["stdout"].extend(res._result["stdout_lines"])
             if res._result.get("rc", None):
