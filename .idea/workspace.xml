@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4277b23b-f7e2-461c-a52b-1290ac393a56" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/utils/ops/devtool/create_playbook.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/ops/celerytool/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/ops/celerytool/ansible_task/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/ops/celerytool/ansible_task/tasks.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/ops/celerytool/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/ops/celerytool/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/worksys/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/worksys/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/worksys/fastscripts.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/worksys/fastscripts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/setting.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/ops/devtool/ansible_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/ops/devtool/ansible_tool.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/ops/devtool/callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/ops/devtool/callback.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ops/devtool/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ops/devtool/test1.py" beforeDir="false" />
     </list>
     <list id="a347ec1e-7c18-4ec3-bc9b-1bf9de43e276" name="Default" comment="">
       <change beforePath="E:/ubox/oms/requirements.txt" beforeDir="false" afterPath="E:/ubox/oms/requirements.txt" afterDir="false" />
@@ -23,13 +27,14 @@
     <session id="-1549857935">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.0" value="6" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.19" value="2" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.19" value="3" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -39,7 +44,7 @@
           <entry key="cfg" value="1" />
           <entry key="hosts" value="1" />
           <entry key="md" value="1" />
-          <entry key="py" value="179" />
+          <entry key="py" value="198" />
           <entry key="pyi" value="1" />
           <entry key="yaml" value="1" />
           <entry key="yml" value="2" />
@@ -50,7 +55,7 @@
           <entry key="Ini" value="1" />
           <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="180" />
+          <entry key="Python" value="199" />
           <entry key="PythonStub" value="1" />
           <entry key="YAML" value="3" />
         </counts>
@@ -59,13 +64,13 @@
         <counts>
           <entry key="ansible_tool" value="820" />
           <entry key="dummy" value="41" />
-          <entry key="py" value="8331" />
+          <entry key="py" value="8811" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="41" />
-          <entry key="Python" value="9151" />
+          <entry key="Python" value="9631" />
         </counts>
       </usages-collector>
     </session>
@@ -73,10 +78,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/ops/celerytool/ansible_task/tasks.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+              <folding>
+                <element signature="e#25#73#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/ops/devtool/ansible_tool.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="589">
-              <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
+            <state relative-caret-position="3025">
+              <caret line="121" lean-forward="true" selection-start-line="121" selection-end-line="121" />
               <folding>
                 <element signature="e#48#57#0" expanded="true" />
               </folding>
@@ -85,23 +102,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/vars/manager.py">
+        <entry file="file://$PROJECT_DIR$/utils/ops/devtool/backup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="122" column="24" selection-start-line="122" selection-start-column="14" selection-end-line="122" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/ops/devtool/callback.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3628">
-              <caret line="19" column="42" lean-forward="true" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
-              <folding>
-                <element signature="e#25#35#0" expanded="true" />
-                <marker date="1540002696736" expanded="true" signature="263:272" ph="..." />
-              </folding>
+            <state relative-caret-position="2250">
+              <caret line="101" column="8" selection-start-line="101" selection-start-column="8" selection-end-line="107" />
             </state>
           </provider>
         </entry>
@@ -109,8 +113,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/worksys/fastscripts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="725">
+              <caret line="32" column="30" lean-forward="true" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
               <folding>
                 <element signature="e#23#76#0" expanded="true" />
               </folding>
@@ -119,41 +123,36 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/ReturnCode.py">
+        <entry file="file://$PROJECT_DIR$/utils/ops/celerytool/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/ops/devtool/create_playbook.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="40" column="27" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="27" />
+            <state relative-caret-position="150">
+              <caret line="6" column="81" lean-forward="true" selection-start-line="6" selection-start-column="81" selection-end-line="6" selection-end-column="81" />
               <folding>
-                <element signature="e#23#36#0" expanded="true" />
-                <marker date="1540008555692" expanded="true" signature="141:146" ph="..." />
+                <element signature="e#16#42#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://E:/运维部文档/yewu/scripts/青云诀/zabbix/mysqlfieldcheck.py">
+        <entry file="file://$PROJECT_DIR$/utils/ops/celerytool/ansible_task/__init__.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://D:/dev/python3.6.5/Lib/site-packages/celery/app/base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="219" column="4" selection-start-line="219" selection-start-column="4" selection-end-line="220" selection-end-column="60" />
+            <state relative-caret-position="4204">
+              <caret line="1120" column="47" lean-forward="true" selection-start-line="1120" selection-start-column="47" selection-end-line="1120" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/setting.py">
+        <entry file="file://$PROJECT_DIR$/utils/ops/celerytool/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="16" column="88" selection-start-line="16" selection-start-column="88" selection-end-line="16" selection-end-column="88" />
+            <state relative-caret-position="175">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -161,7 +160,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
+            <state relative-caret-position="975">
               <caret line="55" column="34" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="34" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
@@ -173,7 +172,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/worksys/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
+            <state relative-caret-position="100">
               <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
@@ -193,10 +192,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>logger</find>
-      <find>InventoryManager</find>
-      <find>payload</find>
-      <find>get_formate_data</find>
       <find>raise Exception(results_callback.error_msg)</find>
       <find>AnsibleTaskResultCallback</find>
       <find>DEFAULT_STDOUT_CALLBACK</find>
@@ -223,6 +218,10 @@
       <find>VariableManager</find>
       <find>extra_vars</find>
       <find>get_default_options</find>
+      <find>Manager</find>
+      <find>multiprocessing</find>
+      <find>id</find>
+      <find>AsyncResult</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -257,10 +256,17 @@
         <option value="$PROJECT_DIR$/app/ops/fastscripts.py" />
         <option value="$PROJECT_DIR$/app/__init__.py" />
         <option value="$PROJECT_DIR$/app/worksys/__init__.py" />
-        <option value="$PROJECT_DIR$/utils/ops/devtool/callback.py" />
-        <option value="$PROJECT_DIR$/utils/ops/devtool/ansible_tool.py" />
         <option value="$PROJECT_DIR$/utils/ops/devtool/create_playbook.py" />
         <option value="$PROJECT_DIR$/config/setting.py" />
+        <option value="$PROJECT_DIR$/utils/ops/devtool/callback.py" />
+        <option value="$PROJECT_DIR$/utils/ops/devtool/ansible_tool.py" />
+        <option value="$PROJECT_DIR$/utils/ops/celery-tool/tasks.py" />
+        <option value="$PROJECT_DIR$/utils/ops/celery-tool/config.py" />
+        <option value="$PROJECT_DIR$/utils/ops/celery-tool/main.py" />
+        <option value="$PROJECT_DIR$/utils/ops/celerytool/ansible_run/tasks.py" />
+        <option value="$PROJECT_DIR$/utils/ops/celerytool/main.py" />
+        <option value="$PROJECT_DIR$/utils/ops/celerytool/ansible_task/tasks.py" />
+        <option value="$PROJECT_DIR$/utils/ops/celerytool/config.py" />
         <option value="$PROJECT_DIR$/app/worksys/fastscripts.py" />
       </list>
     </option>
@@ -276,7 +282,7 @@
       <path value="$PROJECT_DIR$/../devops-flask-vue-master/devops-flask-vue-master/vue-init/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="960" />
@@ -290,6 +296,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -305,7 +312,8 @@
             <path>
               <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
               <item name="myoms" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="worksys" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
@@ -317,6 +325,21 @@
               <item name="myoms" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
               <item name="ops" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myoms" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="ops" type="462c0819:PsiDirectoryNode" />
+              <item name="celerytool" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myoms" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="ops" type="462c0819:PsiDirectoryNode" />
+              <item name="celerytool" type="462c0819:PsiDirectoryNode" />
+              <item name="ansible_task" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
@@ -325,56 +348,10 @@
               <item name="ops" type="462c0819:PsiDirectoryNode" />
               <item name="devtool" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="ansible" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-              <item name="ansible-devel" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="ansible" type="462c0819:PsiDirectoryNode" />
-              <item name="vars" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-              <item name="青云诀" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myoms" type="b2602c69:ProjectViewProjectNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-              <item name="青云诀" type="462c0819:PsiDirectoryNode" />
-              <item name="zabbix" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -386,6 +363,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\owner\myoms\utils\ops\celerytool\ansible_run" />
       <recent name="E:\owner\myoms\app\worksys" />
       <recent name="E:\owner\myoms\app\authentication" />
       <recent name="E:\owner\myoms\utils" />
@@ -465,14 +443,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1652452" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1684435" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -537,101 +515,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://E:/ubox/oms/api/qingyunjue/api_qingyunjue.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="46" column="16" lean-forward="true" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/verification_tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/运维部文档/yewu/scripts/青云诀/backup/通用/backsql.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2475" />
-      </provider>
-    </entry>
-    <entry file="file://E:/运维部文档/yewu/scripts/青云诀/backup/通用/remoteback.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="75" column="6" selection-start-line="75" selection-end-line="75" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/ops/devtool/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1003" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/ops/devtool/test1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="41" column="24" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/ubox/oms/celerytask/schedtask_for_send.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="69" column="40" lean-forward="true" selection-start-line="69" selection-start-column="40" selection-end-line="69" selection-end-column="40" />
-          <folding>
-            <element signature="e#57#86#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/ubox/oms/celerytask/schedtask.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="262" column="38" lean-forward="true" selection-start-line="262" selection-start-column="38" selection-end-line="262" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/ubox/oms/celerytask/celeryapp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-56" />
-      </provider>
-    </entry>
-    <entry file="file://E:/ubox/oms/celerytask/agency.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="16" column="29" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/bin/ansible-playbook">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/executor/task_queue_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-571">
-          <caret line="303" column="29" lean-forward="true" selection-start-line="303" selection-start-column="29" selection-end-line="303" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/examples/playbooks/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/examples/DOCUMENTATION.yml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/examples/ansible.cfg">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/examples/hosts">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -646,16 +529,6 @@
     <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/executor/playbook_executor.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/ops/devtool/backup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2250">
-          <caret line="101" column="8" selection-start-line="101" selection-start-column="8" selection-end-line="107" />
-          <folding>
-            <element signature="e#48#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/constants.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4500">
@@ -667,9 +540,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1725">
           <caret line="76" column="28" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="28" />
-          <folding>
-            <element signature="e#23#57#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -756,9 +626,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-line="15" />
-          <folding>
-            <element signature="e#24#51#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -769,11 +636,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="575">
           <caret line="23" column="18" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="18" />
-          <folding>
-            <element signature="e#23#60#0" expanded="true" />
-            <element signature="e#2851#4070#0" />
-            <element signature="e#4111#4934#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -784,43 +646,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="55" column="34" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="34" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/worksys/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
-          <folding>
-            <element signature="e#24#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/运维部文档/yewu/scripts/青云诀/zabbix/mysqlfieldcheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="219" column="4" selection-start-line="219" selection-start-column="4" selection-end-line="220" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/vars/manager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
+        <state relative-caret-position="3050">
           <caret line="122" column="24" selection-start-line="122" selection-start-column="14" selection-end-line="122" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ops/devtool/callback.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+          <folding>
+            <element signature="e#25#35#0" expanded="true" />
+            <marker date="1540008968437" expanded="true" signature="264:273" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ReturnCode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/ops/devtool/create_playbook.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
+        <state relative-caret-position="900">
           <caret line="40" column="27" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="27" />
           <folding>
             <element signature="e#23#36#0" expanded="true" />
@@ -829,31 +682,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/ReturnCode.py">
+    <entry file="file://D:/dev/python3.6.5/Lib/multiprocessing/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://E:/运维部文档/yewu/scripts/青云诀/zabbix/zabbix-api/template_updata.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://E:/运维部文档/yewu/scripts/青云诀/zabbix/zabbix-api/graph-update.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://E:/运维部文档/yewu/scripts/青云诀/backup/检查/backup_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="750">
+          <caret line="37" column="41" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/ops/devtool/callback.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3628">
-          <caret line="19" column="42" lean-forward="true" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
-          <folding>
-            <element signature="e#25#35#0" expanded="true" />
-            <marker date="1540002696736" expanded="true" signature="263:272" ph="..." />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://E:/运维部文档/yewu/scripts/青云诀/backup/通用/remoteback.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/ops/devtool/ansible_tool.py">
+    <entry file="file://E:/运维部文档/yewu/scripts/青云诀/zabbix/mysqlfieldcheck.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="75" lean-forward="true" selection-start-line="75" selection-end-line="75" />
-          <folding>
-            <element signature="e#48#57#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="5475">
+          <caret line="219" column="4" selection-start-line="219" selection-start-column="4" selection-end-line="220" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -864,10 +715,118 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="55" column="34" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="34" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/worksys/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding>
+            <element signature="e#24#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ops/celerytool/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://E:/运维部文档/yewu/scripts/青云诀/backup/通用/backsql.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="650">
+          <caret line="44" column="15" lean-forward="true" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
+          <folding>
+            <element signature="e#63#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ops/devtool/backup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2250">
+          <caret line="101" column="8" selection-start-line="101" selection-start-column="8" selection-end-line="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ops/devtool/ansible_tool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3025">
+          <caret line="121" lean-forward="true" selection-start-line="121" selection-end-line="121" />
+          <folding>
+            <element signature="e#48#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ops/celerytool/ansible_task/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ops/celerytool/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="81" lean-forward="true" selection-start-line="6" selection-start-column="81" selection-end-line="6" selection-end-column="81" />
+          <folding>
+            <element signature="e#16#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ansible-devel/ansible-devel/lib/ansible/modules/network/f5/bigip_wait.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-452">
+          <caret line="121" column="8" selection-start-line="121" selection-start-column="8" selection-end-line="121" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/dev/python3.6.5/Lib/site-packages/celery/utils/abstract.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1728">
+          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ops/celerytool/ansible_task/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+          <folding>
+            <element signature="e#25#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/dev/python3.6.5/Lib/site-packages/kombu/utils/objects.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/dev/python3.6.5/Lib/site-packages/celery/app/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4204">
+          <caret line="1120" column="47" lean-forward="true" selection-start-line="1120" selection-start-column="47" selection-end-line="1120" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ops/celerytool/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/worksys/fastscripts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="725">
+          <caret line="32" column="30" lean-forward="true" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
           <folding>
             <element signature="e#23#76#0" expanded="true" />
           </folding>

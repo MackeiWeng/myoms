@@ -3,7 +3,7 @@
 import sys
 
 from ansible.plugins.callback import CallbackBase
-from display import TeeObj
+from .display import TeeObj
 
 class AdHocResultCallback(CallbackBase):
     """

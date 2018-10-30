@@ -7,6 +7,7 @@ from utils.ops.devtool.ansible_tool import AnsibleTask
 import  logging
 from utils.ReturnCode import  *
 from config.setting import Config
+from utils.ops.celerytool.ansible_task.tasks import run_fastscripts
 
 logger = logging.getLogger("myoms %s"%__file__)
 
@@ -25,11 +26,10 @@ class Fastscripts(Resource):
         try:
             hosts = ",".join(json_data["ip"])
             user = json_data["user"]
-            script_file_path = fast_task_init(json_data)
-            extra_vars = {"hosts":hosts,"user":user,"script_path":script_file_path}
-            ansible_handle = AnsibleTask(json_data["ip"],timeout=json_data["timeout"],extra_vars=extra_vars)
-            result = ansible_handle.exec_playbook(playbooks=[Config.ANSIBLE_FASTSCRIPT_PLAYBOOK_PATH])
-            return  result
+            result = run_fastscripts.delay(json_data)
+            celery_id = result.id
+            print(celery_id)
+            return  celery_id
         except Exception as e:
             print(e)
         finally:
