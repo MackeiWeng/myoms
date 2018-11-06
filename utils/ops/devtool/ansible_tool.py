@@ -19,60 +19,66 @@ import ansible.constants as C
 那我们如何取消这个交互呢'''
 C.HOST_KEY_CHECKING = False
 
-Options = namedtuple('Options', [
-    'listtags', 'listtasks', 'listhosts', 'syntax', 'connection',
-    'module_path', 'forks', 'remote_user', 'private_key_file', 'timeout',
-    'ssh_common_args', 'ssh_extra_args', 'sftp_extra_args',
-    'scp_extra_args', 'become', 'become_method', 'become_user',
-    'verbosity', 'check', 'extra_vars', 'playbook_path', 'passwords',
-    'diff', 'gathering', 'remote_tmp',
-])
 
 
-def get_default_options():
-    options = Options(
-        listtags=False,
-        listtasks=False,
-        listhosts=False,
-        syntax=False,
-        timeout=100,
-        connection='ssh',
-        module_path='',
-        forks=10,
-        remote_user='root',
-        private_key_file='/root/.ssh/id_rsa',
-        ssh_common_args="",
-        ssh_extra_args="",
-        sftp_extra_args="",
-        scp_extra_args="",
-        become=None,
-        become_method=None,
-        become_user=None,
-        verbosity=None,
-        extra_vars=[],
-        check=False,
-        playbook_path='',
-        passwords=None,
-        diff=False,
-        gathering='implicit',
-        remote_tmp='/tmp/.ansible'
-    )
-    return options
+
 
 
 class AnsibleTask:
+
+    Options = namedtuple('Options', [
+        'listtags', 'listtasks', 'listhosts', 'syntax', 'connection',
+        'module_path', 'forks', 'remote_user', 'private_key_file', 'timeout',
+        'ssh_common_args', 'ssh_extra_args', 'sftp_extra_args',
+        'scp_extra_args', 'become', 'become_method', 'become_user',
+        'verbosity', 'check', 'extra_vars', 'playbook_path', 'passwords',
+        'diff', 'gathering', 'remote_tmp',
+    ])
+
     def __init__(self, hosts, extra_vars=None,timeout=None):
         self.hosts = hosts
         self._validate()
         self.hosts_file = None
-        self.options = get_default_options()
-        if timeout:
-            self.options.timeout = timeout
+        self.options = self.get_default_options()
+        print(type(self.options))
+        # if timeout:
+        #     self.options.timeout = timeout
         self.loader = DataLoader()
         self.inventory = InventoryManager(loader=self.loader, sources=[','.join(self.hosts)+','])
         self.variable_manager = VariableManager(loader=self.loader, inventory=self.inventory)
         if extra_vars:
             self.variable_manager.extra_vars = extra_vars
+
+    def get_default_options(self):
+        options = self.Options(
+            listtags=False,
+            listtasks=False,
+            listhosts=False,
+            syntax=False,
+            timeout=100,
+            connection='ssh',
+            module_path='',
+            forks=10,
+            remote_user='root',
+            private_key_file='/root/.ssh/id_rsa',
+            ssh_common_args="",
+            ssh_extra_args="",
+            sftp_extra_args="",
+            scp_extra_args="",
+            become=None,
+            become_method=None,
+            become_user=None,
+            verbosity=None,
+            extra_vars=[],
+            check=False,
+            playbook_path='',
+            passwords=None,
+            diff=False,
+            gathering='implicit',
+            remote_tmp='/tmp/.ansible'
+        )
+        return options
+
 
     def _validate(self):
         if not self.hosts:
