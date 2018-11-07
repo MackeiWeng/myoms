@@ -4,10 +4,11 @@ from redis import  Redis
 from utils.ops.devtool.ansible_tool import AnsibleTask
 from utils.ops.devtool.create_playbook import fast_task_init
 from config.setting import Config
+from rq.decorators import job
 
 fastscripts_conn = Redis(host="localhost",port=7000,db=0)
-q = Queue(connection=fastscripts_conn)
 
+@job('low', connection=fastscripts_conn)
 def run_fastscripts_playbook(json_data):
     hosts = ",".join(json_data["ip"])
     user = json_data["user"]
