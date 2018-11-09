@@ -46,5 +46,5 @@ def create_user():
 
 
 if __name__ == '__main__':
-    # python fastscripts_queue.py  runserver -h 0.0.0.0 -p 8888
+    # python fastscripts_job.py  runserver -h 0.0.0.0 -p 8888
     manager.run()

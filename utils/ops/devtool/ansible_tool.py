@@ -19,43 +19,31 @@ import ansible.constants as C
 那我们如何取消这个交互呢'''
 C.HOST_KEY_CHECKING = False
 
+from celery.utils.log import  get_task_logger
 
-
-
+logger = get_task_logger(__name__)
 
 
 class AnsibleTask:
-
-    Options = namedtuple('Options', [
-        'listtags', 'listtasks', 'listhosts', 'syntax', 'connection',
-        'module_path', 'forks', 'remote_user', 'private_key_file', 'timeout',
-        'ssh_common_args', 'ssh_extra_args', 'sftp_extra_args',
-        'scp_extra_args', 'become', 'become_method', 'become_user',
-        'verbosity', 'check', 'extra_vars', 'playbook_path', 'passwords',
-        'diff', 'gathering', 'remote_tmp',
-    ])
-
     def __init__(self, hosts, extra_vars=None,timeout=None):
+        Options = namedtuple('Options', [
+            'listtags', 'listtasks', 'listhosts', 'syntax', 'connection',
+            'module_path', 'forks', 'remote_user', 'private_key_file', 'timeout',
+            'ssh_common_args', 'ssh_extra_args', 'sftp_extra_args',
+            'scp_extra_args', 'become', 'become_method', 'become_user',
+            'verbosity', 'check', 'extra_vars', 'playbook_path', 'passwords',
+            'diff', 'gathering', 'remote_tmp',
+        ])
         self.hosts = hosts
         self._validate()
         self.hosts_file = None
-        self.options = self.get_default_options()
-        print(type(self.options))
-        # if timeout:
-        #     self.options.timeout = timeout
-        self.loader = DataLoader()
-        self.inventory = InventoryManager(loader=self.loader, sources=[','.join(self.hosts)+','])
-        self.variable_manager = VariableManager(loader=self.loader, inventory=self.inventory)
-        if extra_vars:
-            self.variable_manager.extra_vars = extra_vars
-
-    def get_default_options(self):
-        options = self.Options(
+        self.timeout = 100 if not timeout else timeout
+        self.options = Options(
             listtags=False,
             listtasks=False,
             listhosts=False,
             syntax=False,
-            timeout=100,
+            timeout=self.timeout,
             connection='ssh',
             module_path='',
             forks=10,
@@ -77,8 +65,13 @@ class AnsibleTask:
             gathering='implicit',
             remote_tmp='/tmp/.ansible'
         )
-        return options
+        self.loader = DataLoader()
+        self.inventory = InventoryManager(loader=self.loader, sources=[','.join(self.hosts)+','])
+        self.variable_manager = VariableManager(loader=self.loader, inventory=self.inventory)
+        if extra_vars:
+            self.variable_manager.extra_vars = extra_vars
 
+        logger.info(self.options)
 
     def _validate(self):
         if not self.hosts:
@@ -120,7 +113,6 @@ class AnsibleTask:
         setattr(getattr(playbook, '_tqm'), '_stdout_callback', results_callback)
         playbook.run()
         return results_callback.results
-
 
     def __del__(self):
         if self.hosts_file:
